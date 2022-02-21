@@ -32,7 +32,18 @@ class File:
     def openfile(self):
         global path, recentpaths
         if os.path.isfile(self.filepath):
-            os.system("mousepad " + self.filepath)
+            if self.filename.endswith(".mp4") | self.filename.endswith(".vid") | self.filename.endswith(".mp3") | self.filename.endswith(".wav") | self.filename.endswith(".ogg"):
+                os.system("vlc " + self.filepath)
+            elif self.filename.endswith(".txt"):
+                os.system("mousepad " + self.filepath)
+            elif self.filename.endswith(".png") | self.filename.endswith(".jpg") | self.filename.endswith(".jpeg") | self.filename.endswith(".ico"):
+                os.system("gpicview "+ self.filepath)
+            elif self.filename.endswith(".exe"):
+                os.system(self.filepath)
+            elif self.filename.endswith(".zip"):
+                os.system("xarchiver " + self.filepath)
+            else:
+                popup.showwarning("Unknown Filetype", "Know what it is? try converting it to a more common file type.")
         else:
             recentpaths.append(path)
             path += self.filename + "/"
@@ -69,7 +80,7 @@ pathvar = StringVar()
 pathentry = Entry(app, textvariable=pathvar)
 pathentry.bind('<KeyRelease-Return>', goto)
 pathentry.grid(row=0, column=1, ipadx=5, ipady=15)
-path = os.getcwd()
+path = os.getcwd() + "/"
 def opendir():
     global files, pathvar
     pathvar.set(path)
