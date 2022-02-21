@@ -1,6 +1,7 @@
-# FileManage
-A file manager platform made in (python) tkinter, soon to support all platforms
+# ![favicon](/icons/Folder-0.png) FileManage
+A file manager platform made in (python) tkinter, supports all platforms
 
+![Image](screenshot.png)
 
 # Attribution
 - "arc" ttk theme by rdbende
