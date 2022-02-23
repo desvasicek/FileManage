@@ -75,12 +75,17 @@ app.config(bg="white")
 app.call("source", os.getcwd() + "/arc/arc.tcl")
 app.iconphoto(False, PhotoImage(file=os.getcwd() + "/icons/Folder-0.png"))
 Style(app).theme_use("arc")
+app.attributes("-fullscreen", True)
 Button(app, text="<-- Back <--", command=goback).grid(row=0, column=0,ipadx=5, ipady=15)
 pathvar = StringVar()
 pathentry = Entry(app, textvariable=pathvar)
 pathentry.bind('<KeyRelease-Return>', goto)
 pathentry.grid(row=0, column=1, ipadx=5, ipady=15)
-path = os.getcwd() + "/"
+Button(app, text="X Close X", command=lambda:app.destroy()).grid(row=0, column=11,ipadx=5, ipady=15)
+Button(app, text="- Iconify -", command=lambda:app.iconify()).grid(row=0, column=10,ipadx=5, ipady=15)
+Button(app, text="% Exit Full Screen %", command=lambda:app.attributes("-fullscreen", False)).grid(row=0, column=9,ipadx=5, ipady=15)
+Button(app, text="+ Enter Full Screen +", command=lambda:app.attributes("-fullscreen", True)).grid(row=0, column=8,ipadx=5, ipady=15)
+path = os.getcwd().replace("/FileManage", "") + "/"
 def opendir():
     global files, pathvar
     pathvar.set(path)
@@ -92,7 +97,7 @@ def opendir():
     row = 1
     column = 0
     for file in os.listdir(path):
-        if column == 14:
+        if column == 12:
             column = 0
             row += 1
         File(row, column, path + file, file)
